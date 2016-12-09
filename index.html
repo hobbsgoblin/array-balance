@@ -18,38 +18,46 @@
     <div class="container-fluid app">
         <div class="row title">
           <div class="container">
-              <h1 class="col-sm-12">Array Balance Point Finder</h1>
+              <div class="col-sm-12">
+                  <h1 class="">Array Balance Point Finder</h1>
+              </div>
           </div>
         </div>
         <div class="row form-top-bar-container">
             <div class="container">
-                <div id="form-container" class="form-inline col-sm-12">
+                <form id="form-container" class="form-top-bar col-sm-12">
                     <h2>Enter an array to find its balance point</h2>
                     <div class="form-group form-group-lg top-bar-inputs">
-                        <input
-                                id="array-input"
-                                class="form-control"
-                                type="text"
-                                placeholder="e.g.: 1, 3, 7, 2, 2"
-                                name="custom-array" />
-                        <label>
+                        <div class="input-group">
                             <input
-                                    type="checkbox"
+                                    id="array-input"
                                     class="form-control"
-                                    id="allow-approximate" />
-                            Allow approximate results
-                        </label>
-                        <input
-                                id="submit"
-                                class="form-control btn btn-primary"
-                                type="submit"
-                                value="Submit" />
+                                    type="text"
+                                    placeholder="1, 3, 7, 2, 2"
+                                    name="custom-array" />
+                            <div class="input-group-btn">
+                                <input
+                                        id="submit"
+                                        class="form-control btn btn-primary"
+                                        type="submit"
+                                        value="Submit" />
+                            </div>
+                        </div>
                     </div>
                     <div class="array-select-container">
                         <h3>Or select an array:</h3>
                         <div id="select-array"></div>
                     </div>
-                </div>
+                    <div class="checkbox">
+                        <label>
+                            <input
+                                    type="checkbox"
+                                    class="checkbox"
+                                    id="allow-approximate" />
+                            Allow approximate results
+                        </label>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="row result-container">

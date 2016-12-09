@@ -70,23 +70,28 @@ let answerText = document.getElementById('answer-text');
 let answerDisplay = document.getElementById('answer-display');
 let approxCheckbox = document.getElementById('allow-approximate');
 
-// function _renderResult(result) {
-//   let resultStr = result ? result.index : 'No balance point';
-//   if (approxCheckbox.checked) {
-//     resultStr = (result.exact ? 'exactly ' : 'approximately ') + result.index;
-//   }
-//   answerText.textContent = "The balance point is: " + resultStr;
-// }
-
 function _renderResult(arr) {
   const balResult = findBalance(arr, approxCheckbox.checked);
-  console.log(balResult);
+  if (!balResult) {
+    answerText.innerHTML = "<span>There is no balance point! <br> Try checking \"Allow approximate results\".</span>";
+    let noBalContainer = document.createElement('div');
+    noBalContainer.className = 'no-result-container';
+    arr.forEach((element) => {
+      let item = document.createElement('span');
+      item.textContent = element;
+      noBalContainer.appendChild(item);
+    });
+    answerDisplay.innerHTML = '';
+    answerDisplay.appendChild(noBalContainer);
+    return;
+  }
+
   const balIndex = balResult.index;
   let resultStr = balResult ? balResult.index : 'No balance point';
   if (approxCheckbox.checked) {
     resultStr = (balResult.exact ? 'exactly ' : 'approximately ') + balResult.index;
   }
-  answerText.textContent = "The balance point is: " + resultStr;
+  answerText.textContent = "The index of the balance point is: " + resultStr;
 
   let leftContainer = document.createElement('div');
   let rightContainer = document.createElement('div');
@@ -132,18 +137,13 @@ function _render() {
   let arrContainer = document.createElement('div');
   arrContainer.id = "arrays-container";
   let arrSelectMarkup = arrays.reduce((container, arr, index) => {
-    let label = document.createElement('label');
-    let labelText = document.createTextNode("[" + arr.toString() + "]");
-    let input = document.createElement('input');
-    input.name = "array";
-    input.value = index;
-    input.type = "radio";
-    label.appendChild(input);
-    label.appendChild(labelText);
-    label.addEventListener('click', function() {
+    let arrBtn = document.createElement('div');
+    arrBtn.className = 'array';
+    arrBtn.textContent = '[ ' + arr.toString() + ' ]';
+    arrBtn.addEventListener('click', function() {
       _handleArrSelect(index);
     });
-    container.appendChild(label);
+    container.appendChild(arrBtn);
     return container;
   }, arrContainer);
   arrSelect.appendChild(arrSelectMarkup);
